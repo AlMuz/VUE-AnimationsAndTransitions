@@ -7,7 +7,7 @@
                 <button class="btn btn-primary" @click="show = !show">Show alert</button>
                 <br>
                 <br>
-                <transition>
+                <transition name="fade">
                   <div class="alert alert-info" v-if="show">
                     This Is some Info
                   </div>
@@ -28,5 +28,20 @@
 </script>
 
 <style>
+  .fade-enter {
+    opacity: 0;
+  }
 
+  .fade-enter-active {
+    transition: opacity 1s;
+  }
+
+  .fade-leave {
+
+  }
+
+  .fade-leave-active {
+    transition: opacity 1s;
+    opacity: 0;
+  }
 </style>
