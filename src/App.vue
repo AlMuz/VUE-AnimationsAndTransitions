@@ -18,6 +18,15 @@
                     This Is some Info
                   </div>
                 </transition>
+
+                <!-- appear can be used only with simple css, not imported css -->
+                <transition
+                  enter-active-class="animated bounce"
+                  leave-active-class="animated shake">
+                  <div class="alert alert-info" v-if="show">
+                    This Is some Info
+                  </div>
+                </transition>
             </div>
         </div>
     </div>
@@ -27,7 +36,7 @@
     export default {
         data() {
             return {
-              show: false
+              show: true
             }
         }
     }
