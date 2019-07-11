@@ -3,16 +3,16 @@
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <h1>Animations</h1>
+
                 <hr>
-                <select v-model="alertAnimation" class="form-controll">
+
+                <select v-model="alertAnimation" class="form-control">
                   <option value="fade">Fade</option>
                   <option value="slide">Slide</option>
                 </select>
-                <br>
-                <br>
-                <button class="btn btn-primary" @click="show = !show">Show alert</button>
-                <br>
-                <br>
+
+                <button class="btn btn-primary mt-10 mb-10" @click="show = !show">Show alert</button>
+
                 <transition :name="alertAnimation">
                   <div class="alert alert-info" v-if="show">
                     This Is some Info
@@ -43,10 +43,11 @@
                     This Is some warning
                   </div>
                 </transition>
+
                 <hr>
-                <button class="btn btn-primary" @click="load = !load">Load / Remove Element</button>
-                <br>
-                <br>
+
+                <button class="btn btn-primary mb-10" @click="load = !load">Load / Remove Element</button>
+
                 <transition
                   @before-enter="beforeEnter"
                   @enter="enter"
@@ -60,15 +61,34 @@
                   :css="false">
                   <div style="width:300px; height:100px; background-color: lightgreen" v-if="load"></div>
                 </transition>
+
                 <hr>
-                <button class="btn btn-primary" @click="selectedComponent == 'successAlert' ? selectedComponent = 'dangerAlert' :  selectedComponent = 'successAlert'">
+
+                <button class="btn btn-primary mb-10" @click="selectedComponent == 'successAlert' ? selectedComponent = 'dangerAlert' :  selectedComponent = 'successAlert'">
                   Togle components
                 </button>
-                <br>
-                <br>
+
                 <transition name="fade" mode="out-in">
                   <component :is="selectedComponent"></component>
                 </transition>
+
+                <hr>
+
+                <button class="btn btn-primary mt-10 mb-10" @click="addItem">Add item</button>
+
+                <ul class="list-group">
+                  <transition-group name="slide">
+                    <li
+                      class="list-group-item"
+                      style="cursor:pointer"
+                      v-for="(number, index) in numbers"
+                      @click="removeItem(index)"
+                      :key="number">
+                      {{ number }}
+                    </li>
+                  </transition-group>
+              </ul>
+
             </div>
         </div>
     </div>
@@ -86,7 +106,8 @@
               load: true,
               alertAnimation: 'fade',
               elementWidth: 100,
-              selectedComponent: 'successAlert'
+              selectedComponent: 'successAlert',
+              numbers: [1,2,3,4,5,6,7,8],
             }
         },
         methods: {
@@ -128,6 +149,13 @@
           },
           leaveCanceled(el) {
           },
+          addItem() {
+            const pos = Math.floor(Math.random() * this.numbers.length);
+            this.numbers.splice(pos, 0, this.numbers.length + 1)
+          },
+          removeItem(index) {
+            this.numbers.splice(index, 1);
+          }
         },
         components: {
           dangerAlert: DangerAlert,
@@ -137,6 +165,14 @@
 </script>
 
 <style>
+  .mt-10 {
+    margin-top: 10px;
+  }
+
+  .mb-10 {
+    margin-bottom: 10px;
+  }
+
   .fade-enter {
     opacity: 0;
   }
@@ -172,6 +208,11 @@
     animation: slide-out 1s ease-out forwards;
     transition: opacity 1s;
     opacity: 0;
+    position: absolute;
+  }
+
+  .slide-move {
+    transition: transform 1s;
   }
 
   @keyframes slide-in {
