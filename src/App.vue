@@ -48,16 +48,16 @@
                 <br>
                 <br>
                 <transition
-                @before-enter="beforeEnter"
-                @enter="enter"
-                @after-enter="afterEnter"
-                @enter-canceled="enterCanceled"
+                  @before-enter="beforeEnter"
+                  @enter="enter"
+                  @after-enter="afterEnter"
+                  @enter-canceled="enterCanceled"
 
-                @before-leave="beforeLeave"
-                @leave="leave"
-                @after-leave="afterLeave"
-                @leave-canceled="leaveCanceled"
-                :css="false">
+                  @before-leave="beforeLeave"
+                  @leave="leave"
+                  @after-leave="afterLeave"
+                  @leave-canceled="leaveCanceled"
+                  :css="false">
                   <div style="width:300px; height:100px; background-color: lightgreen" v-if="load"></div>
                 </transition>
                 <hr>
