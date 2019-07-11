@@ -33,6 +33,16 @@
                     This Is some Info
                   </div>
                 </transition>
+
+                <transition :name="alertAnimation" mode="out-in">
+                  <div class="alert alert-info" v-if="show" key="info">
+                    This Is some Info
+                  </div>
+
+                  <div class="alert alert-warning" v-else key="warning">
+                    This Is some warning
+                  </div>
+                </transition>
             </div>
         </div>
     </div>
