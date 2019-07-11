@@ -43,6 +43,23 @@
                     This Is some warning
                   </div>
                 </transition>
+                <hr>
+                <button class="btn btn-primary" @click="load = !load">Load / Remove Element</button>
+                <br>
+                <br>
+                <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter"
+                @enter-canceled="enterCanceled"
+
+                @before-leave="beforeLeave"
+                @leave="leave"
+                @after-leave="afterLeave"
+                @leave-canceled="leaveCanceled"
+                :css="false">
+                  <div style="width:300px; height:100px; background-color: lightgreen" v-if="load"></div>
+                </transition>
             </div>
         </div>
     </div>
@@ -53,8 +70,50 @@
         data() {
             return {
               show: true,
+              load: true,
               alertAnimation: 'fade',
+              elementWidth: 100,
             }
+        },
+        methods: {
+          beforeEnter(el) {
+            this.elementWidth = 100;
+            el.style.width = this.elementWidth + 'px';
+          },
+          enter(el, done) {
+            let round = 1
+            const interval = setInterval(() => {
+              el.style.width = (this.elementWidth + round * 10) + 'px';
+              round++;
+              if (round > 20) {
+                clearInterval(interval);
+                done();
+              }
+            }, 20);
+          },
+          afterEnter(el) {
+          },
+          enterCanceled(el) {
+          },
+          beforeLeave(el) {
+            this.elementWidth = 300;
+            el.style.width = this.elementWidth + ' px';
+          },
+          leave(el, done) {
+            let round = 1
+            const interval = setInterval(() => {
+              el.style.width = (this.elementWidth - round * 10) + 'px';
+              round++;
+              if (round > 20) {
+                clearInterval(interval);
+                done();
+              }
+            }, 20);
+          },
+          afterLeave(el) {
+          },
+          leaveCanceled(el) {
+          },
         }
     }
 </script>
